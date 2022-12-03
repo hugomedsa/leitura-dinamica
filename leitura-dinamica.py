@@ -1,6 +1,5 @@
 # coding: iso-8859-1 -*-
-# Não apagar a linha acima, "coding". Caixa de script aberta até a linha 25 quando pag = 26.
-# Usar Pycharm tema Darcula, fonte Arial 17, espaço 1.0)
+# Usar Pycharm tema Darcula, fonte Arial 17, espaÃ§o 1.0)
 # Settings > Editor > General > Scrolling > Marcar apenas "Keep the caret"...
 from time import sleep, time
 import simpleaudio
@@ -9,7 +8,7 @@ import wikipedia
 
 def baixar_wikipedia():
     wikipedia.set_lang('pt')
-    text = wikipedia.page("ciência de dados").content.replace('\n',' ')
+    text = wikipedia.page("ciÃªncia de dados").content.replace('\n',' ')
     return texto
 
 strong_beat = simpleaudio.WaveObject.from_wave_file('sounds/strong_beat.wav')
@@ -17,12 +16,12 @@ weak_beat = simpleaudio.WaveObject.from_wave_file('sounds/weak_beat.wav')
 
 
 menu_inicial = Tk()
-menu_inicial.title("Leitura Dinâmica")
+menu_inicial.title("Leitura DinÃ¢mica")
 menu_inicial.state("zoomed")
 menu_inicial['bg'] = 'black'
 # menu_inicial.mainloop()
 
-margem = ''  # apenas para centralizar o texto e não formatar espaços
+margem = ''  # apenas para centralizar o texto e nÃ£o formatar espaÃ§os
 pag = 27
 
 
@@ -37,14 +36,14 @@ with open('texto-rapido.txt','r') as file:
             texto = arquivo[1000:]
             arquivo = filer.write(texto)
 
-s = 0.22  # velocidade, quanto mais baixo, mais rápido
+s = 0.22  # velocidade, quanto mais baixo, mais rÃ¡pido
 len_linha = 40
 
 texto = texto[:10000]
 
 inicio = time()
 
-for t in range(0, len(texto.split())//pag): #somatório de páginas
+for t in range(0, len(texto.split())//pag): #somatÃ³rio de pÃ¡ginas
 
     for p in range(0, pag):
 
@@ -52,7 +51,7 @@ for t in range(0, len(texto.split())//pag): #somatório de páginas
             iniciobloco = 0
             fimbloco = bp = len_linha
         else:
-            iniciobloco = (pag*len_linha*t)+1  # pag*len_linha é o total de caracteres em cada página exibida
+            iniciobloco = (pag*len_linha*t)+1  # pag*len_linha Ã© o total de caracteres em cada pÃ¡gina exibida
             fimbloco = iniciobloco + len_linha
         for c in range(0, pag):
             if len(texto) > fimbloco + len_linha:
@@ -62,8 +61,8 @@ for t in range(0, len(texto.split())//pag): #somatório de páginas
 
             if c != p:
                 print('')
-                print(f'\033[90m{bloco.center(200," ")}', end='\033[m')  # "20" é a margem não destacada
-                #print(f'\033[33m{bloco:>130}', end='\033[m')  # "20" é a margem não destacada
+                print(f'\033[90m{bloco.center(200," ")}', end='\033[m')  # "20" Ã© a margem nÃ£o destacada
+                #print(f'\033[33m{bloco:>130}', end='\033[m')  # "20" Ã© a margem nÃ£o destacada
 
             else:
                 if bloco.replace(' ', '').replace('.', '') == '':
@@ -83,5 +82,5 @@ for t in range(0, len(texto.split())//pag): #somatório de páginas
 
 fim = time()
 
-print(f'Você leu {len(texto.split())} palavras.')
-print(f'Sua velocidade de leitura é de  {int(len(texto.split())*60/(fim-inicio))} p.p.m.')
+print(f'VocÃª leu {len(texto.split())} palavras.')
+print(f'Sua velocidade de leitura Ã© de  {int(len(texto.split())*60/(fim-inicio))} p.p.m.')
