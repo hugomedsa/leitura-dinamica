@@ -5,35 +5,39 @@
 from time import sleep,time
 import simpleaudio
 import wikipedia
+import _thread
 
 def baixar_wikipedia():
     wikipedia.set_lang('pt')
-    texto = wikipedia.page("ciência de dados").content.replace('\n',' ')
-    return texto
+    texto = wikipedia.page("aprendizado de máquina").content
+    return texto.replace('\n',' ')
 
-
-strong_beat = simpleaudio.WaveObject.from_wave_file('sounds/strong_beat.wav')
+#strong_beat = simpleaudio.WaveObject.from_wave_file('sounds/strong_beat.wav')
 weak_beat = simpleaudio.WaveObject.from_wave_file('sounds/weak_beat.wav')
-
 margem = ''  # apenas para centralizar o texto e não formatar espaços
-pag = 52  # somatório de todas as meias linhas
+pag = 54  # somatório de todas as meias linhas
+s = 0.21 # velocidade: quanto mais baixa, mais rápido
 
-with open('texto-rapido.txt','r') as file:
+
+with open('texto-rapido.txt','r',encoding="utf-8") as file:
     arquivo = file.read().replace('\n',' ')
     if len(arquivo) < 5000:
-        texto = baixar_wikipedia()
-        with open('texto-rapido.txt', 'w') as filer:
-            arquivo = filer.write(texto)
+        text = baixar_wikipedia().replace('=','.')
+        with open('texto-rapido.txt', 'w', encoding="utf-8") as filer:
+            arquivo = filer.write(text)
     else:
-        with open('texto-rapido.txt', 'w') as filer:
-            texto = arquivo[1000:]
-            arquivo = filer.write(texto)
+        with open('texto-rapido.txt', 'w', encoding="utf-8") as filer:
+            text = arquivo[5000:]
+            arquivo = filer.write(text)
 
-s = 0.20 # velocidade: quanto mais baixa, mais rápido
-texto = texto[:10000]
+try:
+    texto = text[:5000]
+except UnicodeEncodeError:
+    texto = text
+
 init = time()
 
-for t in range(0, (len(texto)//(pag*40))+1):
+for t in range(0, (len(texto)//(pag*40)+1)):
     for p in range(0, pag):
         if t == 0:
             iniciobloco = 0
@@ -46,32 +50,34 @@ for t in range(0, (len(texto)//(pag*40))+1):
                 bloco = texto[iniciobloco + texto[iniciobloco:].index(' '):fimbloco + texto[fimbloco:].index(' ')]
             else:
                 bloco = texto[iniciobloco:fimbloco]
-
             if c == p:
                 if c % 2 == 0:
-                    if bloco.replace(' ', '').replace('.', '') == '':
-                        break
-                    weak_beat.play()
-                    print(f'{margem:>35}\033[33m{bloco:>65}', end='\033[m')  # "35" é a margem não destacada
+                    print(f'{margem:>45}\033[33m{bloco:>75}', end='\033[m')  # "35" é a margem não destacada
                     print(end='')
+                    weak_beat.play()
                 else:
-                    strong_beat.play()
                     print(f'\033[33m{bloco}', end='\033[m')
                     print('')
 
+
             else:
                 if c % 2 == 0:
-                    if bloco.replace(' ', '').replace('.', '') == '':
-                        break
-                    print(f'{bloco:>100}', end='\033[m')
+                    print(f'\033[m{bloco:>120}', end='\033[m') #33[90m é cinza 33[33m é verde
                     print(end='')
                 else:
-                    print(f'{bloco}', end='\033[m')
+                    print(f'\033[m{bloco}', end='\033[m')
                     print('')
+
+            if c==p and bloco == '':
+                print('')
+                break
             iniciobloco += bp
             fimbloco += bp
+
+        if c == p and bloco == '':
+            print('')
+            break
         sleep(s)
-    #s -= 0.005   # vai aumentando a velocidade aos poucos. Opcional.
         print('')
 
 fim = time()
