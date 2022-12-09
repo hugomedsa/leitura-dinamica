@@ -1,22 +1,21 @@
 # coding: iso-8859-1 -*-
-# Não apagar a linha acima, "coding".
-# Pycharm Color Scheme Font: tema Darcula, fonte Arial 16, espaço 1.0)
+# NÃ£o apagar a linha acima, "coding".
+# Pycharm Color Scheme Font: tema Darcula, fonte Arial 16, espaÃ§o 1.0)
 # Settings > Editor > General > Scrolling > Marcar apenas "Keep the caret"...
 from time import sleep,time
 import simpleaudio
 import wikipedia
-import _thread
 
 def baixar_wikipedia():
     wikipedia.set_lang('pt')
-    texto = wikipedia.page("aprendizado de máquina").content
+    texto = wikipedia.page("aprendizado de mÃ¡quina").content
     return texto.replace('\n',' ')
 
 #strong_beat = simpleaudio.WaveObject.from_wave_file('sounds/strong_beat.wav')
 weak_beat = simpleaudio.WaveObject.from_wave_file('sounds/weak_beat.wav')
-margem = ''  # apenas para centralizar o texto e não formatar espaços
-pag = 54  # somatório de todas as meias linhas
-s = 0.21 # velocidade: quanto mais baixa, mais rápido
+margem = ''  # apenas para centralizar o texto e nÃ£o formatar espaÃ§os
+pag = 54  # somatÃ³rio de todas as meias linhas
+s = 0.21 # velocidade: quanto mais baixa, mais rÃ¡pido
 
 
 with open('texto-rapido.txt','r',encoding="utf-8") as file:
@@ -52,7 +51,7 @@ for t in range(0, (len(texto)//(pag*40)+1)):
                 bloco = texto[iniciobloco:fimbloco]
             if c == p:
                 if c % 2 == 0:
-                    print(f'{margem:>45}\033[33m{bloco:>75}', end='\033[m')  # "35" é a margem não destacada
+                    print(f'{margem:>45}\033[33m{bloco:>75}', end='\033[m')  # "35" Ã© a margem nÃ£o destacada
                     print(end='')
                     weak_beat.play()
                 else:
@@ -62,7 +61,7 @@ for t in range(0, (len(texto)//(pag*40)+1)):
 
             else:
                 if c % 2 == 0:
-                    print(f'\033[m{bloco:>120}', end='\033[m') #33[90m é cinza 33[33m é verde
+                    print(f'\033[m{bloco:>120}', end='\033[m')
                     print(end='')
                 else:
                     print(f'\033[m{bloco}', end='\033[m')
@@ -82,5 +81,5 @@ for t in range(0, (len(texto)//(pag*40)+1)):
 
 fim = time()
 
-print(f'Você leu {len(texto.split())} palavras.')
+print(f'VocÃª leu {len(texto.split())} palavras.')
 print(f'Sua velocidade de leitura foi {round(len(texto.split())*60/(fim-init),0)} p.p.m.')
