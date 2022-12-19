@@ -3,7 +3,6 @@
 # Settings > Editor > General > Scrolling > Marcar apenas "Keep the caret"...
 from time import sleep, time
 import simpleaudio
-from tkinter import *
 import wikipedia
 
 def baixar_wikipedia():
@@ -13,13 +12,6 @@ def baixar_wikipedia():
 
 strong_beat = simpleaudio.WaveObject.from_wave_file('sounds/strong_beat.wav')
 weak_beat = simpleaudio.WaveObject.from_wave_file('sounds/weak_beat.wav')
-
-
-menu_inicial = Tk()
-menu_inicial.title("Leitura Dinâmica")
-menu_inicial.state("zoomed")
-menu_inicial['bg'] = 'black'
-# menu_inicial.mainloop()
 
 margem = ''  # apenas para centralizar o texto e não formatar espaços
 pag = 27
